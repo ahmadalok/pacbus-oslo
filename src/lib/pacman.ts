@@ -105,6 +105,60 @@ export function drawPellet(
   }
 }
 
+export function drawCleanIcon(
+  ctx: CanvasRenderingContext2D,
+  size: number,
+  bearing: number,
+  isDelayed: boolean,
+  isSelected: boolean
+) {
+  const cx = size / 2;
+  const cy = size / 2;
+  const r = size * 0.38;
+
+  ctx.clearRect(0, 0, size, size);
+
+  // Glow ring for selected
+  if (isSelected) {
+    ctx.beginPath();
+    ctx.arc(cx, cy, r + 4, 0, Math.PI * 2);
+    ctx.strokeStyle = isDelayed ? "#FF6B6B" : "#00FF88";
+    ctx.lineWidth = 2.5;
+    ctx.shadowColor = isDelayed ? "#FF6B6B" : "#00FF88";
+    ctx.shadowBlur = 10;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+
+  // Main circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = isDelayed ? "#C0392B" : "#1A6B3C";
+  ctx.fill();
+
+  // Circle border
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.strokeStyle = isDelayed ? "#FF6B6B" : "#2ECC71";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Direction arrow
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(((bearing - 90) * Math.PI) / 180);
+  const aw = r * 0.35;
+  const ah = r * 0.5;
+  ctx.beginPath();
+  ctx.moveTo(0, -r * 0.75);       // tip
+  ctx.lineTo(-aw, -r * 0.2);     // left base
+  ctx.lineTo(aw, -r * 0.2);      // right base
+  ctx.closePath();
+  ctx.fillStyle = isDelayed ? "#FF9999" : "#90EE90";
+  ctx.fill();
+  ctx.restore();
+}
+
 export function getOnTimeScore(delaySeconds: number): number {
   if (delaySeconds <= 60) return 100;
   if (delaySeconds >= 600) return 0;

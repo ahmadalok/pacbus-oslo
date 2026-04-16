@@ -8,9 +8,11 @@ import type { CityConfig } from "@/lib/types";
 interface HeaderProps {
   currentCity: CityConfig;
   onCityChange: (cityId: string) => void;
+  spriteStyle: "pacman" | "clean";
+  onSpriteToggle: () => void;
 }
 
-export default function Header({ currentCity, onCityChange }: HeaderProps) {
+export default function Header({ currentCity, onCityChange, spriteStyle, onSpriteToggle }: HeaderProps) {
   const [sound, setSound] = useState(false);
 
   const toggleSound = () => {
@@ -44,6 +46,17 @@ export default function Header({ currentCity, onCityChange }: HeaderProps) {
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <button
+            onClick={onSpriteToggle}
+            className={`text-xs font-mono px-2.5 py-1 rounded border transition-all ${
+              spriteStyle === "clean"
+                ? "bg-green-500/20 border-green-500 text-green-400"
+                : "border-gray-600 text-gray-400 hover:border-yellow-500/50 hover:text-yellow-300"
+            }`}
+            title={spriteStyle === "pacman" ? "Switch to clean view" : "Switch to Pac-Man view"}
+          >
+            {spriteStyle === "pacman" ? "🗺️ Clean" : "🎮 Pac-Man"}
+          </button>
           <button
             onClick={toggleSound}
             className="text-sm px-2 py-1 rounded border border-gray-600 hover:border-yellow-500/50 transition-colors"

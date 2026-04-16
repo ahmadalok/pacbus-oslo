@@ -38,6 +38,7 @@ export default function MapView() {
   const { data, isLoading, error } = useVehicles(cityId);
   const [selectedBus, setSelectedBus] = useState<Bus | null>(null);
   const [statsOpen, setStatsOpen] = useState(false);
+  const [spriteStyle, setSpriteStyle] = useState<"pacman" | "clean">("pacman");
 
   // Deduplicate buses by ID, keeping the most recently updated
   const buses = (() => {
@@ -65,7 +66,7 @@ export default function MapView() {
 
   return (
     <div className="relative w-full h-full">
-      <Header currentCity={city} onCityChange={handleCityChange} />
+      <Header currentCity={city} onCityChange={handleCityChange} spriteStyle={spriteStyle} onSpriteToggle={() => setSpriteStyle(s => s === "pacman" ? "clean" : "pacman")} />
 
       <LeafletMap
         center={city.center}
@@ -84,6 +85,7 @@ export default function MapView() {
             bus={bus}
             isSelected={selectedBus?.id === bus.id}
             onSelect={handleSelectBus}
+            spriteStyle={spriteStyle}
           />
         ))}
         <TileLayer
