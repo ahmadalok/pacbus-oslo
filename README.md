@@ -1,10 +1,11 @@
-# 🟡 PacBus Oslo
+# 🟡 PacBus Oslo & Bergen
 
 > Real-time Norwegian buses, rendered as Pac-Man.
-> Built end-to-end with some vibe coding sessions with Claude as a testing project.
+> Built end-to-end with some vibe coding sessions with Claude as a testing and learn by doing project.
 
 Every yellow dot is a live bus. Delayed buses turn into red ghosts.
 Click one to see its line, delay, and speed.
+Possible to change icon to normal circles.
 
 ---
 
@@ -34,10 +35,7 @@ Click one to see its line, delay, and speed.
 
 ---
 
-## 🏗️ Architecture
-
-
-
 Deployed on Vecel
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+https://pacbus-oslo.vercel.app/
 
